@@ -1,10 +1,10 @@
 package com.nicolas.aura.domain.mapper
 
-import com.nicolas.aura.domain.model.BootDataModel
+import com.nicolas.aura.domain.model.BootEventModel
 
 class BootDataMapper() {
 
-    fun mapFrom(): List<BootDataModel> { //usually I use KotlinSerializer
-        return emptyList()
+    fun mapFrom(timestamps: List<Long>): List<BootEventModel> {
+        return timestamps.map { BootEventModel(timestamp = it) }
     }
 }

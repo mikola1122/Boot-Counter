@@ -57,8 +57,9 @@ koin-androidx-compose = {group = "io.insert-koin", name = "koin-androidx-compose
 koin-androidx-navigation = {group = "io.insert-koin", name = "koin-androidx-navigation", version.ref = "koinAndroid"}
 koin-androidx-workManaget = {group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koinAndroid"}
 koin-ktor = {group = "io.insert-koin", name = "koin-ktor", version.ref = "koinKtor"}
-androidx-room-runtime = {group = "androidx.room", name = "room-runtime", version.ref = "room"}
-androidx-room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "room"}
+room-runtime = {group = "androidx.room", name = "room-runtime", version.ref = "room"}
+room-compiler = {group = "androidx.room", name = "room-compiler", version.ref = "room"}
+room-ktx = {group = "androidx.room", name = "room-ktx", version.ref = "room"}
 ksp = { group = "com.google.devtools.ksp", name = "symbol-processing", version.ref = "ksp" }
 ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "ksp" }

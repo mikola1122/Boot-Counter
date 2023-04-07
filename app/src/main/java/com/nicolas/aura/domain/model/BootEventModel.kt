@@ -1,6 +1,5 @@
 package com.nicolas.aura.domain.model
 
-data class BootDataModel(
-    val id: Long,
+data class BootEventModel(
     val timestamp: Long
 )

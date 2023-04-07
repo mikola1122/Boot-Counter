@@ -1,8 +1,8 @@
 package com.nicolas.aura.di
 
 import androidx.work.WorkerParameters
+import com.nicolas.aura.data.db.AuraDatabase
 import com.nicolas.aura.data.db.DbSource
-import com.nicolas.aura.data.db.MainDbSource
 import com.nicolas.aura.data.repository.AuraRepository
 import com.nicolas.aura.data.repository.MainRepository
 import com.nicolas.aura.domain.mapper.BootDataMapper
@@ -47,8 +47,10 @@ val mainModule = module {
         BootDataMapper()
     }
 
-    single<MainDbSource> {
-        DbSource()
+    single {
+        DbSource(
+            dao = get<AuraDatabase>().bootEventsDao()
+        )
     }
 
     single {
@@ -57,5 +59,7 @@ val mainModule = module {
             mainRepository = get()
         )
     }
+
+    single { AuraDatabase.getInstance(get()) }
 
 }

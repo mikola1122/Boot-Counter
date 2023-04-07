@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -49,9 +50,12 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.navigation)
     implementation(libs.koin.androidx.workManaget)
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-//    ksp(libs.androidx.room.compiler)
+    
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.room.ktx)
+
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintLayout)

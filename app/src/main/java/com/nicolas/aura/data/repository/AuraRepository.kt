@@ -1,21 +1,19 @@
 package com.nicolas.aura.data.repository
 
-import com.nicolas.aura.data.db.MainDbSource
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.nicolas.aura.data.db.DbSource
+import com.nicolas.aura.data.db.model.BootEventsEntity
+import com.nicolas.aura.data.utils.getCurrentTimestamp
 
 class AuraRepository(
-    val dbSource: MainDbSource
-): MainRepository {
+    val dbSource: DbSource
+) : MainRepository {
 
-    override fun getBootDataFlow(): StateFlow<Long> {
-        // TODO: update repo
-        return MutableStateFlow(-1L)
+    override suspend fun getBootDataList(): List<Long> {
+        return dbSource.getAllBootEvents().map { it.timestamp }
     }
 
-    override fun addBootCompletedEvent(): Boolean {
-        // TODO: store this event into DB
-        return true
+    override suspend fun addBootCompletedEvent() {
+        return dbSource.addNewBootEvent(BootEventsEntity(timestamp = getCurrentTimestamp()))
     }
 
 }

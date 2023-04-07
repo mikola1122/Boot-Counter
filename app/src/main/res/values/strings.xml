@@ -5,6 +5,8 @@
 
     <string name="boot_completed_notification_title">Boot Counter notif title</string>
     <string name="boot_completed_notification_message_no_boots_detected">@string/main_screen_no_boots_detected</string>
+    <string name="boot_completed_notification_message_single_boot_event">The boot was detected with the timestamp = %1$d</string>
+    <string name="boot_completed_notification_message_multiple_boot_events">Last boots time delta = %1$d</string>
     <string name="boot_completed_notification_channel_name">BootCompleted</string>
     <string name="boot_completed_notification_channel_description">Background tasks for Boot Completed</string>
 

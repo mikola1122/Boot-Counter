@@ -1,10 +1,8 @@
 package com.nicolas.aura.data.repository
 
-import kotlinx.coroutines.flow.StateFlow
-
 interface MainRepository {
 
-    fun getBootDataFlow(): StateFlow<Long>
+    suspend fun getBootDataList(): List<Long>
 
-    fun addBootCompletedEvent(): Boolean
+    suspend fun addBootCompletedEvent()
 }

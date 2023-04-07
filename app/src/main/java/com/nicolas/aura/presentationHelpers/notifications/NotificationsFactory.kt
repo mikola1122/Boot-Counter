@@ -16,6 +16,7 @@ import com.nicolas.aura.data.repository.MainRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 private const val SyncNotificationId = 0
 private const val SyncNotificationChannelID = "SyncNotificationChannel"
@@ -29,23 +30,21 @@ class NotificationsFactory(
         get() = Dispatchers.IO + Job()
 
     fun showNotification() {
-        // TODO: chose message depend on repository data
-        val message: String =
-            context.getString(R.string.boot_completed_notification_message_no_boots_detected)
-
-        val notification = NotificationCompat.Builder(
-            context,
-            SyncNotificationChannelID,
-        )
-            .setSmallIcon(
-                R.drawable.ic_launcher_background,
+        launch {
+            val message: String = getNotificationMessage()
+            val notification = NotificationCompat.Builder(
+                context,
+                SyncNotificationChannelID,
             )
-            .setContentTitle(context.getString(R.string.boot_completed_notification_title))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentText(message)
-            .build()
-
-        notify(SyncNotificationId, notification)
+                .setSmallIcon(
+                    R.drawable.ic_launcher_background,
+                )
+                .setContentTitle(context.getString(R.string.boot_completed_notification_title))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentText(message)
+                .build()
+            notify(SyncNotificationId, notification)
+        }
     }
 
     private fun notify(notificationId: Int, notification: Notification) {
@@ -63,9 +62,9 @@ class NotificationsFactory(
                 notificationChannel.enableVibration(true)
                 createNotificationChannel(notificationChannel)
             }
-        if (checkNotificationPermission()) return
+            if (checkNotificationPermission()) return
 
-        notify(notificationId, notification)
+            notify(notificationId, notification)
         }
     }
 
@@ -82,5 +81,25 @@ class NotificationsFactory(
         return false
     }
 
+    private suspend fun getNotificationMessage(): String {
+        val bootData = mainRepository.getBootDataList().sortedDescending()
+        return when (bootData.size) {
+            0 -> {
+                context.getString(R.string.boot_completed_notification_message_no_boots_detected)
+            }
+            1 -> {
+                context.getString(
+                    R.string.boot_completed_notification_message_single_boot_event,
+                    bootData.first()
+                )
+            }
+            else -> {
+                context.getString(
+                    R.string.boot_completed_notification_message_multiple_boot_events,
+                    (bootData.first() - bootData[1])
+                )
+            }
+        }
+    }
 
 }
