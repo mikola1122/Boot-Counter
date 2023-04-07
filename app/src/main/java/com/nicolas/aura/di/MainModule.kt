@@ -8,6 +8,7 @@ import com.nicolas.aura.data.repository.MainRepository
 import com.nicolas.aura.domain.mapper.BootDataMapper
 import com.nicolas.aura.domain.useCase.GetBootDataUseCase
 import com.nicolas.aura.presentationHelpers.BootCompletedWorker
+import com.nicolas.aura.presentationHelpers.RepeatableNotificationsWorker
 import com.nicolas.aura.presentationHelpers.notifications.NotificationsFactory
 import com.nicolas.aura.ui.main.MainActivityViewModel
 import org.koin.android.ext.koin.androidContext
@@ -25,6 +26,13 @@ val mainModule = module {
 
     worker { (workerParams: WorkerParameters) ->
         BootCompletedWorker(
+            context = androidContext(),
+            parameters = workerParams
+        )
+    }
+
+    worker { (workerParams: WorkerParameters) ->
+        RepeatableNotificationsWorker(
             context = androidContext(),
             parameters = workerParams
         )

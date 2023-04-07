@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class BootCompletedWorker(context: Context, parameters: WorkerParameters) :
+class BootCompletedWorker(val context: Context, parameters: WorkerParameters) :
     CoroutineWorker(context, parameters),
     KoinComponent {
 
@@ -25,6 +25,7 @@ class BootCompletedWorker(context: Context, parameters: WorkerParameters) :
         withContext(Dispatchers.IO) {
             mainRepository.addBootCompletedEvent()
             notificationFactory.showNotification()
+            RepeatableNotificationsWorker.selfScheduleRepeatable(context) //AlarmManager would be more accurate with time, but will use more battery power
         }
         return Result.success()
     }
