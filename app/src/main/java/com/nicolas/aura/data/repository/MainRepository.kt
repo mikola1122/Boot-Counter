@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.StateFlow
 interface MainRepository {
 
     fun getBootDataFlow(): StateFlow<Long>
+
+    fun addBootCompletedEvent(): Boolean
 }

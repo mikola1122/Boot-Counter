@@ -13,4 +13,9 @@ class AuraRepository(
         return MutableStateFlow(-1L)
     }
 
+    override fun addBootCompletedEvent(): Boolean {
+        // TODO: store this event into DB
+        return true
+    }
+
 }
