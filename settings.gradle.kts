@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Boot Counter"
-include ':app'
+include(":app")
